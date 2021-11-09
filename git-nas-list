@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Load parameter
+. git-nas-param
+
+ssh -p $PORT $USER@$ADDRESS ls -l $REPOS_PATH

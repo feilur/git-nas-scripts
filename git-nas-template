@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# $1 : Template to clone
+# $2 : Name of the new project
+
+# This script assumes that you are placed where you want to create the git project parent folder
+
+if [ $# = 2 ]
+then
+    # Avoid overriding existing project
+    mkdir tmp
+    cd tmp
+    git-nas-clone $1
+
+    # Test if *.git was written in parameter (to be removed)
+	TEST=`echo $1 | grep .git`
+
+	if [[ $TEST = $1 ]]
+	then
+		REPO_NAME=$1
+	else
+		GIT_SUFFIX=".git"
+		REPO_NAME="$1$GIT_SUFFIX"
+	fi
+
+    cd ..
+
+	PROJECT_NAME=${REPO_NAME:0:-4}
+
+    # Rename output folder
+    mv tmp/$PROJECT_NAME/ $2
+
+    # Delete .git folder
+    rm -rf $2/.git
+
+    # Delete tmp folder
+    rm -rf tmp
+else
+	echo "ERROR: Not enough parameters: git-nas-template <template repo> <output folder name>"
+fi

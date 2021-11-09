@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Load parameter
+. git-nas-param
+
+if [ $# = 1 ]
+then
+	# Test if *.git was written in parameter (to be removed)
+	TEST=`echo $1 | grep .git`
+
+	if [[ $TEST = $1 ]]
+	then
+		REPO_NAME=$1
+	else
+		GIT_SUFFIX=".git"
+		REPO_NAME="$1$GIT_SUFFIX"
+	fi
+
+	echo "ssh://$USER@$ADDRESS:$PORT$REPOS_PATH$REPO_NAME"
+else
+	echo "ERROR: Not enough parameters: git-nas-url <repo name>"
+fi

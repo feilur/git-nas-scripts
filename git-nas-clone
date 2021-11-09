@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Load parameters
+. git-nas-param
+
+# This script assumes that you are placed where you want to create the git project parent folder
+
+if [ $# = 1 ]
+then
+	# Test if *.git was written in parameter (to be removed)
+	TEST=`echo $1 | grep .git`
+
+	if [[ $TEST = $1 ]]
+	then
+		REPO_NAME=$1
+	else
+		GIT_SUFFIX=".git"
+		REPO_NAME="$1$GIT_SUFFIX"
+	fi
+
+	PROJECT_NAME=${REPO_NAME:0:-4}
+
+	git clone --recursive ssh://$USER@$ADDRESS:$PORT$REPOS_PATH$REPO_NAME
+	
+	cd $PROJECT_NAME
+	echo $REPO_NAME > .git/repo-name	
+else
+	echo "ERROR: Not enough parameters: git-nas-clone <repo name>"
+fi

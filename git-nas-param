@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Parameters used by git-nas-* scripts
+
+# Server info
+USER="myusername"
+ADDRESS="myserver.com"
+PORT="22"
+SHARE_GROUP="git-data"	# If not set, use the same user name as USER variable
+
+# WARNING: DO NOT FORGET THE LAST '/' BELOW
+REPOS_PATH="/mnt/data/git-repos/"
+
+# Git user info
+NAME="My git name"
+EMAIL="myemailaddress@mail.com"
